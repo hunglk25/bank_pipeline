@@ -1,4 +1,4 @@
-CREATE TABLE Customer (
+CREATE TABLE IF NOT EXISTS Customer (
   CustomerID SERIAL PRIMARY KEY,
   NationalID VARCHAR(20) UNIQUE NOT NULL,   -- CCCD/Passport
   Name VARCHAR(100),
@@ -8,7 +8,7 @@ CREATE TABLE Customer (
   PasswordHash VARCHAR(255)
 );
 
-CREATE TABLE Device (
+CREATE TABLE IF NOT EXISTS Device (
   DeviceID SERIAL PRIMARY KEY,
   CustomerID INT REFERENCES Customer(CustomerID),
   DeviceType VARCHAR(50),
@@ -17,7 +17,7 @@ CREATE TABLE Device (
   LastUsed TIMESTAMP
 );
 
-CREATE TABLE Account (
+CREATE TABLE IF NOT EXISTS Account (
   AccountID SERIAL PRIMARY KEY,
   CustomerID INT REFERENCES Customer(CustomerID),
   AccountType VARCHAR(50),
@@ -26,7 +26,7 @@ CREATE TABLE Account (
   Status VARCHAR(20)
 );
 
-CREATE TABLE Transaction (
+CREATE TABLE IF NOT EXISTS Transaction (
   TransactionID SERIAL PRIMARY KEY,
   FromAccountID INT REFERENCES Account(AccountID),
   ToAccountID INT REFERENCES Account(AccountID),
@@ -36,7 +36,7 @@ CREATE TABLE Transaction (
   RiskFlag BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE AuthenticationLog (
+CREATE TABLE IF NOT EXISTS AuthenticationLog (
   AuthID SERIAL PRIMARY KEY,
   CustomerID INT REFERENCES Customer(CustomerID),
   DeviceID INT REFERENCES Device(DeviceID),

@@ -1,0 +1,66 @@
+[2025-07-16T15:14:49.900+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-07-16T15:14:49.955+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:14:49.971+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:14:49.971+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-07-16T15:14:49.990+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): log_pipeline_failures> on 2025-07-15 00:00:00+00:00
+[2025-07-16T15:14:50.004+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=484) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-07-16T15:14:50.006+0000] {standard_task_runner.py:63} INFO - Started process 485 to run task
+[2025-07-16T15:14:50.004+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bank_data_pipeline', 'log_pipeline_failures', 'scheduled__2025-07-15T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/bank_data_pipeline.py', '--cfg-path', '/tmp/tmpl2yry553']
+[2025-07-16T15:14:50.006+0000] {standard_task_runner.py:91} INFO - Job 4: Subtask log_pipeline_failures
+[2025-07-16T15:14:50.026+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-16T15:14:50.078+0000] {task_command.py:426} INFO - Running <TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [running]> on host 966f14673c74
+[2025-07-16T15:14:50.209+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineering_team' AIRFLOW_CTX_DAG_ID='bank_data_pipeline' AIRFLOW_CTX_TASK_ID='log_pipeline_failures' AIRFLOW_CTX_EXECUTION_DATE='2025-07-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-07-15T00:00:00+00:00'
+[2025-07-16T15:14:50.210+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-07-16T15:14:50.276+0000] {logging_mixin.py:188} INFO - 2025-07-16 15:14:50,276 - pipeline_logger - ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:14:50.276+0000] {pipeline_logger.py:194} ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:14:50.277+0000] {logging_mixin.py:188} INFO - ❌ Pipeline failure logged for run scheduled__2025-07-15T00:00:00+00:00
+[2025-07-16T15:14:50.277+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-07-16T15:14:50.277+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-07-16T15:14:50.291+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bank_data_pipeline, task_id=log_pipeline_failures, run_id=scheduled__2025-07-15T00:00:00+00:00, execution_date=20250715T000000, start_date=20250716T151449, end_date=20250716T151450
+[2025-07-16T15:14:50.340+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-07-16T15:14:50.379+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-16T15:14:50.381+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-07-16T15:19:03.537+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-07-16T15:19:03.586+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:19:03.598+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:19:03.598+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-07-16T15:19:03.614+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): log_pipeline_failures> on 2025-07-15 00:00:00+00:00
+[2025-07-16T15:19:03.624+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=292) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-07-16T15:19:03.626+0000] {standard_task_runner.py:63} INFO - Started process 293 to run task
+[2025-07-16T15:19:03.626+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bank_data_pipeline', 'log_pipeline_failures', 'scheduled__2025-07-15T00:00:00+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/bank_data_pipeline.py', '--cfg-path', '/tmp/tmp1bjpcb1t']
+[2025-07-16T15:19:03.628+0000] {standard_task_runner.py:91} INFO - Job 3: Subtask log_pipeline_failures
+[2025-07-16T15:19:03.652+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-16T15:19:03.710+0000] {task_command.py:426} INFO - Running <TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [running]> on host 4c2c441a4888
+[2025-07-16T15:19:03.832+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineering_team' AIRFLOW_CTX_DAG_ID='bank_data_pipeline' AIRFLOW_CTX_TASK_ID='log_pipeline_failures' AIRFLOW_CTX_EXECUTION_DATE='2025-07-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-07-15T00:00:00+00:00'
+[2025-07-16T15:19:03.834+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-07-16T15:19:03.898+0000] {logging_mixin.py:188} INFO - 2025-07-16 15:19:03,898 - pipeline_logger - ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:19:03.898+0000] {pipeline_logger.py:194} ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:19:03.899+0000] {logging_mixin.py:188} INFO - ❌ Pipeline failure logged for run scheduled__2025-07-15T00:00:00+00:00
+[2025-07-16T15:19:03.899+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-07-16T15:19:03.899+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-07-16T15:19:03.914+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bank_data_pipeline, task_id=log_pipeline_failures, run_id=scheduled__2025-07-15T00:00:00+00:00, execution_date=20250715T000000, start_date=20250716T151903, end_date=20250716T151903
+[2025-07-16T15:19:03.960+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-07-16T15:19:03.990+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-16T15:19:03.991+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-07-16T15:39:35.004+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-07-16T15:39:35.053+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:39:35.064+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [queued]>
+[2025-07-16T15:39:35.064+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-07-16T15:39:35.079+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): log_pipeline_failures> on 2025-07-15 00:00:00+00:00
+[2025-07-16T15:39:35.091+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=300) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-07-16T15:39:35.092+0000] {standard_task_runner.py:63} INFO - Started process 301 to run task
+[2025-07-16T15:39:35.093+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bank_data_pipeline', 'log_pipeline_failures', 'scheduled__2025-07-15T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/bank_data_pipeline.py', '--cfg-path', '/tmp/tmpny4rcocv']
+[2025-07-16T15:39:35.096+0000] {standard_task_runner.py:91} INFO - Job 4: Subtask log_pipeline_failures
+[2025-07-16T15:39:35.121+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-16T15:39:35.179+0000] {task_command.py:426} INFO - Running <TaskInstance: bank_data_pipeline.log_pipeline_failures scheduled__2025-07-15T00:00:00+00:00 [running]> on host 0cebe846fd9f
+[2025-07-16T15:39:35.299+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineering_team' AIRFLOW_CTX_DAG_ID='bank_data_pipeline' AIRFLOW_CTX_TASK_ID='log_pipeline_failures' AIRFLOW_CTX_EXECUTION_DATE='2025-07-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-07-15T00:00:00+00:00'
+[2025-07-16T15:39:35.300+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-07-16T15:39:35.345+0000] {logging_mixin.py:188} INFO - 2025-07-16 15:39:35,345 - pipeline_logger - ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:39:35.345+0000] {pipeline_logger.py:194} ERROR - Pipeline error in log_pipeline_failures: Pipeline failed - check upstream task logs for details
+[2025-07-16T15:39:35.346+0000] {logging_mixin.py:188} INFO - ❌ Pipeline failure logged for run scheduled__2025-07-15T00:00:00+00:00
+[2025-07-16T15:39:35.346+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-07-16T15:39:35.347+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-07-16T15:39:35.363+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bank_data_pipeline, task_id=log_pipeline_failures, run_id=scheduled__2025-07-15T00:00:00+00:00, execution_date=20250715T000000, start_date=20250716T153935, end_date=20250716T153935
+[2025-07-16T15:39:35.386+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-07-16T15:39:35.419+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-16T15:39:35.421+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

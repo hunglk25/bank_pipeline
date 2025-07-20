@@ -1,0 +1,16 @@
+# Core Python packages
+psycopg2-binary
+faker
+
+# Data processing
+pandas
+numpy
+
+python-json-logger
+
+pytest
+pytest-cov
+
+python-dotenv
+pydantic
+email-validator
