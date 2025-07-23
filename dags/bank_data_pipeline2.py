@@ -301,15 +301,6 @@ dag = DAG(
     doc_md=__doc__
 )
 
-with open('/opt/airflow/sql/create_log_tables.sql', 'r') as f:
-    create_log_sql = f.read()
-
-init_logging_tables_2 = PostgresOperator(
-    task_id='init_logging_tables_2',
-    postgres_conn_id=POSTGRES_CONN_ID,
-    sql=create_log_sql,  # raw SQL content
-    dag=dag
-)
 
 # Task 2: Log pipeline start
 log_start_2 = PythonOperator(
@@ -363,7 +354,7 @@ cleanup_notify_2 = PythonOperator(
 )
 
 # Define task dependencies
-init_logging_tables_2 >> log_start_2 >> generate_data_2 >> quality_checks_2
+log_start_2 >> generate_data_2 >> quality_checks_2
 
 # Branching: If quality checks pass -> upload data, if fail -> log failures
 quality_checks_2 >> [upload_data_2, log_failures_2]

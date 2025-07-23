@@ -112,67 +112,7 @@ wait_for_databases() {
     print_success "Databases are ready"
 }
 
-# Setup Airflow connections
-setup_airflow_connections() {
-    print_status "Setting up Airflow connections..."
-    
-    # Copy the connection script to airflow container and run it
-    docker-compose exec -T airflow-webserver python -c "
-import sys
-sys.path.append('/opt/airflow')
-exec(open('/opt/airflow/airflow_connections.py').read())
-" || print_warning "Connection setup may have failed, but continuing..."
-    
-    print_success "Airflow connections setup completed"
-}
 
-# Initialize database schema
-initialize_schema() {
-    print_status "Initializing database schema..."
-    
-    # Run schema creation
-    if [ -f "./sql/schema.sql" ]; then
-        docker-compose exec -T postgres_data psql -U user -d mydata -f /docker-entrypoint-initdb.d/schema.sql || print_warning "Schema might already exist"
-    fi
-    
-    # Run logging tables creation
-    if [ -f "./sql/create_log_tables.sql" ]; then
-        docker-compose exec -T postgres_data psql -U user -d mydata -f /docker-entrypoint-initdb.d/create_log_tables.sql || print_warning "Log tables might already exist"
-    fi
-    
-    print_success "Database schema initialized"
-}
-
-# Install Python dependencies in Airflow container
-install_dependencies() {
-    print_status "Installing Python dependencies..."
-    
-    if [ -f "./requirements.txt" ]; then
-        docker-compose exec -T airflow-webserver pip install -r /opt/airflow/requirements.txt || print_warning "Some dependencies might have failed to install"
-        docker-compose exec -T airflow-scheduler pip install -r /opt/airflow/requirements.txt || print_warning "Some dependencies might have failed to install"
-    fi
-    
-    print_success "Dependencies installed"
-}
-
-# Test the pipeline
-# test_pipeline() {
-#     print_status "Testing pipeline components..."
-    
-#     # Test data generator
-#     print_status "Testing data generator..."
-#     docker-compose exec -T airflow-webserver python /opt/airflow/src/generate_data_airflow.py || print_warning "Data generator test failed"
-    
-#     # Test quality checker
-#     print_status "Testing quality checker..."
-#     docker-compose exec -T airflow-webserver python /opt/airflow/src/data_quality_standards.py || print_warning "Quality checker test may have failed (expected if no data)"
-    
-#     # Test pipeline logger
-#     print_status "Testing pipeline logger..."
-#     docker-compose exec -T airflow-webserver python /opt/airflow/src/pipeline_logger.py || print_warning "Pipeline logger test failed"
-    
-#     print_success "Pipeline component tests completed"
-# }
 
 # Show final status and instructions
 show_final_status() {
@@ -190,21 +130,7 @@ show_final_status() {
     echo "     Email: admin@admin.com" 
     echo "     Password: admin"
     echo ""
-    echo "📊 Databases:"
-    echo "   • Airflow DB: localhost:5432 (airflow/airflow/airflow)"
-    echo "   • Data DB: localhost:5433 (user/userpass/mydata)"
-    echo ""
-    echo "🔧 Next steps:"
-    echo "   1. Open Airflow UI at http://localhost:8080"
-    echo "   2. Enable the 'bank_data_pipeline' DAG"
-    echo "   3. Trigger a manual run or wait for scheduled execution"
-    echo "   4. Monitor logs and check data quality results"
-    echo ""
-    echo "📝 Useful commands:"
-    echo "   • View logs: docker-compose logs -f [service-name]"
-    echo "   • Stop pipeline: docker-compose down"
-    echo "   • Restart pipeline: docker-compose restart"
-    echo ""
+    echo "   • Streamlit App: http://localhost:8501"
     print_success "Happy data pipelining! 🚀"
 }
 
@@ -220,10 +146,6 @@ main() {
     stop_containers
     start_containers
     wait_for_databases
-    initialize_schema
-    install_dependencies
-    setup_airflow_connections
-    # test_pipeline
     show_final_status
 }
 
