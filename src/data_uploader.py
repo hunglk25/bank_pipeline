@@ -84,7 +84,12 @@ class DataUploader:
                 'columns': ['AuthID', 'CustomerID', 'DeviceID', 'AuthMethod', 'AuthStatus', 'Timestamp'],
                 'sql': """INSERT INTO AuthenticationLog (AuthID, CustomerID, DeviceID, AuthMethod, AuthStatus, Timestamp)
                          VALUES (%s, %s, %s, %s, %s, %s)"""
-            }
+            },
+           'risk_alerts': {
+               'columns': ['CustomerID', 'TransactionID', 'alert_type', 'alert_level', 'description', 'timestamp'],
+               'sql': """INSERT INTO RiskAlerts (CustomerID, TransactionID, AlertType, AlertLevel, Description, CreatedAt)
+                        VALUES (%s, %s, %s, %s, %s, %s)"""
+           }
         }
         
         total = 0
@@ -100,7 +105,7 @@ def load_json_data(data_dir):
         logger.error(f"Directory not found: {data_dir}")
         return data
     
-    json_files = ['customers.json', 'devices.json', 'accounts.json', 'transactions.json', 'auth_logs.json']
+    json_files = ['customers.json', 'devices.json', 'accounts.json', 'transactions.json', 'auth_logs.json', 'risk_alerts.json']
     for filename in json_files:
         filepath = os.path.join(data_dir, filename)
         table_name = filename.replace('.json', '')

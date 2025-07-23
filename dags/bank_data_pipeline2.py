@@ -42,12 +42,14 @@ except ImportError as e:
     SCRIPT_PATHS = {
         'data_generator': '/opt/airflow/src/generate_data.py',
         'quality_checker': '/opt/airflow/src/data_quality.py',
-        'data_uploader': '/opt/airflow/src/data_uploader.py'
+        'data_uploader': '/opt/airflow/src/data_uploader.py',
+        'monitoring_audit': '/opt/airflow/src/monitoring_audit.py'
     }
 
 SCRIPT_PATHS['data_generator'] = '/opt/airflow/src/generate_data.py'
 SCRIPT_PATHS['quality_checker'] = '/opt/airflow/src/data_quality.py'
 SCRIPT_PATHS['data_uploader'] = '/opt/airflow/src/data_uploader.py'
+SCRIPT_PATHS['monitoring_audit'] = '/opt/airflow/src/monitoring_audit.py'
 
 # DAG default arguments
 default_args = {
@@ -188,6 +190,50 @@ def run_data_quality_checks_2(**context):
         logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg, str(e))
         raise
 
+def run_risk_alerts_2(**context):
+    """Run risk alert checks using generated output"""
+    import subprocess
+
+    task_id = context['task_instance'].task_id
+    run_id = context['run_id']
+    logger = PipelineLogger()
+
+    try:
+        logger.log_info(f"Starting risk alert checks for run {run_id}")
+
+        # Lấy path từ XCom
+        ti = context['ti']
+        data_path = ti.xcom_pull(task_ids='generate_banking_data_2', key='data_output_path')
+        if not data_path:
+            raise AirflowException("No data path found from previous task.")
+
+        # Truyền path vào script kiểm tra
+        result = subprocess.run(
+            ['python', SCRIPT_PATHS['monitoring_audit'], '--dir', data_path],
+            capture_output=True,
+            text=True,
+            timeout=600
+        )
+
+        if result.returncode != 0:
+            error_msg = f"Risk alert check failed: {result.stderr}"
+            logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg)
+            raise AirflowException(error_msg)
+
+        logger.log_info(f"Risk alert checks passed: {result.stdout}")
+        logger.log_task_success(run_id, 'bank_data_pipeline', task_id)
+
+        return {"status": "success", "message": "Risk alert checks passed"}
+
+    except subprocess.TimeoutExpired:
+        error_msg = "Risk alert check timed out after 10 minutes"
+        logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg)
+        raise AirflowException(error_msg)
+    except Exception as e:
+        error_msg = f"Unexpected error in risk alerts: {str(e)}"
+        logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg, str(e))
+        raise
+
 
 def upload_data_to_postgres_2(**context):
     """Upload validated data to PostgreSQL"""
@@ -263,7 +309,7 @@ def log_pipeline_failure_2(**context):
             "Pipeline failed - check upstream task logs for details"
         )
         
-        print(f"❌ Pipeline failure logged for run {run_id}")
+        print(f"Pipeline failure logged for run {run_id}")
         
     except Exception as e:
         print(f"Error logging pipeline failure: {str(e)}")
@@ -280,14 +326,14 @@ def notify_2(**context):
         logger.log_task_success(run_id, 'bank_data_pipeline', task_id)
         
         # You can add notification logic here (email, Slack, etc.)
-        print(f"✅ Pipeline completed successfully for run {run_id}")
+        print(f"Pipeline completed successfully for run {run_id}")
         
         return {"status": "success", "message": "Pipeline completed successfully"}
         
     except Exception as e:
         error_msg = f"Error in cleanup: {str(e)}"
         logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg)
-        print(f"⚠️ Cleanup error: {error_msg}")
+        print(f"Cleanup error: {error_msg}")
 
 # Create the DAG
 dag = DAG(
@@ -326,6 +372,14 @@ quality_checks_2 = PythonOperator(
     doc_md="Run comprehensive data quality checks on generated data"
 )
 
+risk_alerts_2 = PythonOperator(
+    task_id='risk_alerts_2',
+    python_callable=run_risk_alerts_2,
+    dag=dag,
+    doc_md="Run risk alert checks on generated data"
+)
+    
+
 # Task 5: Upload data to PostgreSQL
 upload_data_2 = PythonOperator(
     task_id='upload_data_to_postgres_2',
@@ -354,10 +408,10 @@ cleanup_notify_2 = PythonOperator(
 )
 
 # Define task dependencies
-log_start_2 >> generate_data_2 >> quality_checks_2
+log_start_2 >> generate_data_2 >> quality_checks_2 >> risk_alerts_2
 
 # Branching: If quality checks pass -> upload data, if fail -> log failures
-quality_checks_2 >> [upload_data_2, log_failures_2]
+risk_alerts_2 >> [upload_data_2, log_failures_2]
 
 # Success path: upload -> cleanup
 upload_data_2 >> cleanup_notify_2
