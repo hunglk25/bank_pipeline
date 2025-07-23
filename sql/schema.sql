@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS RiskAlerts (
     Description VARCHAR(255),
     Status VARCHAR(20) DEFAULT 'OPEN', -- OPEN, INVESTIGATING, RESOLVED, FALSE_POSITIVE
     CreatedAt TIMESTAMP DEFAULT NOW(),
-    ResolvedAt TIMESTAMP
 );
 
 -- Create indexes for performance
@@ -194,10 +193,6 @@ FROM data_quality_log
 WHERE check_timestamp >= CURRENT_DATE - INTERVAL '7 days'
 GROUP BY DATE(check_timestamp), table_name, check_type
 ORDER BY check_date DESC, table_name, check_type;
-
--- Insert sample data for testing (optional)
--- INSERT INTO pipeline_execution_log (run_id, dag_id, task_id, execution_date, status)
--- VALUES ('test_run_001', 'bank_data_pipeline', 'generate_data', NOW(), 'SUCCESS');
 
 COMMIT;
 

@@ -143,7 +143,7 @@ def main():
             total_uploaded = uploader.upload_all_data(conn, data)
             
             if total_uploaded > 0:
-                logger.info(f"✅ Upload completed - {total_uploaded} total records")
+                logger.info(f"Upload completed - {total_uploaded} total records")
                 print(f"Upload successful - {total_uploaded} records uploaded")
             else:
                 logger.warning("No records were uploaded")

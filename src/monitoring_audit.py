@@ -91,12 +91,12 @@ class BankingMonitor:
                 if AuthMethod in ['BIOMETRIC', 'OTP']:
                     strong_auths.add(CustomerID)
 
-        # Check daily limits
-        for CustomerID, total in daily_totals.items():
-            if total > 20000000 and CustomerID not in strong_auths:
-                violations += 1
-                self.add_alert(CustomerID, 'DAILY_LIMIT_NO_STRONG_AUTH', 'HIGH',
-                             f'Daily total {total:,.0f} VND without strong auth')
+        # # Check daily limits
+        # for CustomerID, total in daily_totals.items():
+        #     if total > 20000000 and CustomerID not in strong_auths:
+        #         violations += 1
+        #         self.add_alert(CustomerID, 'DAILY_LIMIT_NO_STRONG_AUTH', 'HIGH',
+        #                      f'Daily total {total:,.0f} VND without strong auth')
         
         # logger.info(f"Risk violations: {violations}")
         return violations
@@ -110,7 +110,6 @@ class BankingMonitor:
         # Save alerts
         alerts_file = os.path.join(self.data_dir, 'risk_alerts.json')
         with open(alerts_file, 'w') as f:
-            print(f'alerts: {json.dumps(self.alerts, indent=2)}')
             json.dump(self.alerts, f, indent=2)
         
         # logger.info(f"Audit complete - Risks: {risk_violations}, Alerts: {len(self.alerts)}")

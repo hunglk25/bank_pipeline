@@ -337,9 +337,9 @@ def notify_2(**context):
 
 # Create the DAG
 dag = DAG(
-    'bank_data_pipeline_2',
+    'bank_data_pipeline',
     default_args=default_args,
-    description='Banking Data Pipeline 2 - Generate, Validate, and Upload Data',
+    description='Banking Data Pipeline - Generate, Validate, and Upload Data',
     schedule_interval='@daily',
     max_active_runs=1,
     catchup=False,

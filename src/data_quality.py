@@ -36,7 +36,6 @@ class DataQualityChecker:
         self.quality_issues = []
         self.failed_records = {}
 
-        # Cấu hình bảng: (data_key, db_table, [fields]), trong đó field[0] là ID chính
         tables_to_check = [
             ('customers', 'Customer', ['CustomerID', 'NationalID']),
             ('devices', 'Device', ['DeviceID', 'CustomerID']),
@@ -45,7 +44,6 @@ class DataQualityChecker:
             ('auth_logs', 'AuthenticationLog', ['AuthID', 'CustomerID', 'DeviceID']),
         ]
 
-        # Format đặc biệt cho một số trường
         special_format_fields = {
             'NationalID': r'^\d{12}$'
         }
@@ -56,7 +54,6 @@ class DataQualityChecker:
         fail_special_format = []
         pending_fks = {}
 
-        # === Xử lý tất cả bảng ===
         for entity_key, db_table, fields in tables_to_check:
             if entity_key not in self.data:
                 continue
@@ -179,7 +176,6 @@ class DataQualityChecker:
                     if check:
                         seen_values[id_field][id_value] = i
 
-        # === Check tồn tại trong cơ sở dữ liệu ===
         conn = self.get_db_connection()
         if conn:
             try:
@@ -283,15 +279,12 @@ class DataQualityChecker:
                                 f"Foreign key {actual_fk} not found in DB: {table_name}"
                             )
 
-
-
                 cursor.close()
                 conn.close()
             except Exception as e:
                 print(f"Database connection or query failed: {str(e)}")
                 logger.warning(f"Database connection or query failed: {str(e)}")
                 conn.close()
-
 
         total_issues = len(self.quality_issues)
         if total_issues > 0:
@@ -310,11 +303,6 @@ class DataQualityChecker:
             clean_records = [record for record in records if record not in failed_records_for_type]
             clean_data[data_type] = clean_records
             logger.info(f"Clean {data_type}: {len(clean_records)}/{len(records)} records")
-
-        
-        print(f"clean_data: {json.dumps(clean_data, indent=2)}")
-        print('==============================================================================')
-        print(f"failed_records: {json.dumps(self.failed_records, indent=2)}")
 
         return clean_data
 

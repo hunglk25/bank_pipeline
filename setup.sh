@@ -5,7 +5,7 @@
 
 set -e  # Exit on any error
 
-echo "🚀 Banking Data Pipeline Setup Starting..."
+echo "Banking Data Pipeline Setup Starting..."
 
 # Colors for output
 RED='\033[0;31m'

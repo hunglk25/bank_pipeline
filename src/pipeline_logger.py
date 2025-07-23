@@ -1,8 +1,3 @@
-"""
-Pipeline Logger Module
-Centralized logging utility for the banking data pipeline
-Handles database logging, error tracking, and monitoring
-"""
 
 import logging
 import psycopg2
@@ -394,4 +389,4 @@ if __name__ == "__main__":
     errors = logger.get_recent_errors(24)
     print(f"Recent errors: {errors}")
     
-    print("✅ Pipeline logger test completed!")
+    print("Pipeline logger test completed!")
