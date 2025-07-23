@@ -47,7 +47,7 @@ except ImportError as e:
 
 SCRIPT_PATHS['data_generator'] = '/opt/airflow/src/generate_data.py'
 SCRIPT_PATHS['quality_checker'] = '/opt/airflow/src/data_quality.py'
-SCRIPT_PATHS['data_uploader'] = '/opt/airflow/src/data_uploader_2.py'
+SCRIPT_PATHS['data_uploader'] = '/opt/airflow/src/data_uploader.py'
 
 # DAG default arguments
 default_args = {

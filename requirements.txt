@@ -14,3 +14,6 @@ pytest-cov
 python-dotenv
 pydantic
 email-validator
+
+streamlit
+plotly
