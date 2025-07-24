@@ -68,7 +68,7 @@ Automated risk detection with 3 core rules:
 
 
 2. Access applications:
-   - **Airflow**: http://localhost:8080 (admin/admin)
+   - **Airflow**: http://localhost:8081 (admin/admin)
    - **pgAdmin**: http://localhost:8082 (admin@admin.com/admin)
    - **Streamlit Dashboard**: http://localhost:8501
 
@@ -77,7 +77,7 @@ Automated risk detection with 3 core rules:
    - Trigger manual run or wait for scheduled execution
 
 ## Access Information
-- **Airflow**: http://localhost:8080
+- **Airflow**: http://localhost:8081
   - Username: admin
   - Password: admin
 
