@@ -161,7 +161,6 @@ def main():
         # Summary
         total = sum(len(v) for v in data.values())
         logger.info(f"Summary: {total} records saved to {args.output_dir}")
-        print(args.output_dir)  # For Airflow to capture
         
     except Exception as e:
         logger.error(f"Error: {str(e)}")

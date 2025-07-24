@@ -2,7 +2,6 @@ import os
 import sys
 from datetime import datetime, timedelta
 from typing import Dict, Any
-
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
@@ -10,37 +9,23 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.exceptions import AirflowException
 from airflow.utils.dates import days_ago
+from dotenv import load_dotenv
 
 # # Add project root to Python path
 sys.path.append('/opt/airflow')
 sys.path.append('/opt/airflow/src')
 sys.path.append('/opt/airflow/config')
+from src.pipeline_logger import PipelineLogger
 
-# Import project modules
-try:
-    from config.pipeline_config import (
-        PIPELINE_CONFIG, 
-        DB_CONFIG, 
-        DATA_GEN_CONFIG,
-        POSTGRES_CONN_ID,
-        SCRIPT_PATHS
-    )
-    from src.pipeline_logger import PipelineLogger
-except ImportError as e:
-    print(f"Warning: Could not import config modules: {e}")
-    # Fallback configuration
-    POSTGRES_CONN_ID = 'postgres_data'
-    SCRIPT_PATHS = {
-        'data_generator': '/opt/airflow/src/generate_data.py',
-        'quality_checker': '/opt/airflow/src/data_quality.py',
-        'data_uploader': '/opt/airflow/src/data_uploader.py',
-        'monitoring_audit': '/opt/airflow/src/monitoring_audit.py'
-    }
+load_dotenv(dotenv_path="/opt/airflow/.env") 
 
-SCRIPT_PATHS['data_generator'] = '/opt/airflow/src/generate_data.py'
-SCRIPT_PATHS['quality_checker'] = '/opt/airflow/src/data_quality.py'
-SCRIPT_PATHS['data_uploader'] = '/opt/airflow/src/data_uploader.py'
-SCRIPT_PATHS['monitoring_audit'] = '/opt/airflow/src/monitoring_audit.py'
+SCRIPT_PATHS = {
+    'data_generator': os.getenv('DATA_GENERATOR_SCRIPT'),
+    'quality_checker': os.getenv('QUALITY_CHECKER_SCRIPT'),
+    'data_uploader': os.getenv('DATA_UPLOADER_SCRIPT'),
+    'monitoring_audit': os.getenv('MONITORING_AUDIT_SCRIPT'),
+}
+
 
 # DAG default arguments
 default_args = {
@@ -74,7 +59,7 @@ def log_task_start(**context):
         task_id=task_id,
         execution_date=execution_date
     )
-    print(f"✅ Task {task_id} started for run {run_id}")
+    print(f"Task {task_id} started for run {run_id}")
 
 
 def generate_banking_data(**context):
@@ -90,16 +75,13 @@ def generate_banking_data(**context):
     try:
         logger.log_info(f"Starting data generation for run {run_id}")
 
-        # Tạo output dir riêng cho từng run
         base_dir = "/tmp/generated_data"
         os.makedirs(base_dir, exist_ok=True)
         output_dir = os.path.join(base_dir, f"run_{run_id.replace(':', '_')}")
         os.makedirs(output_dir, exist_ok=True)
         # Set environment variables
         env = os.environ.copy()
-        env['CUSTOMER_COUNT'] = str(DATA_GEN_CONFIG.customer_count if 'DATA_GEN_CONFIG' in globals() else '10')
 
-        # Gọi script, truyền output_dir
         result = subprocess.run(
             ['python', SCRIPT_PATHS['data_generator'], '--output_dir', output_dir],
             capture_output=True,
@@ -115,10 +97,8 @@ def generate_banking_data(**context):
             logger.log_error(run_id, 'bank_data_pipeline', task_id, error_msg)
             raise AirflowException(error_msg)
 
-        # Lấy path từ stdout (nên chỉ in 1 dòng path trong script)
         logger.log_task_success(run_id, 'bank_data_pipeline', task_id)
 
-        # Push path để task sau dùng
         ti = context['task_instance']
         ti.xcom_push(key='data_output_path', value=output_dir)
 

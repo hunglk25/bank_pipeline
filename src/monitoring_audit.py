@@ -6,8 +6,6 @@ import logging
 import psycopg2
 from datetime import datetime
 
-# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-# logger = logging.getLogger(__name__)
 
 class BankingMonitor:
     def __init__(self, data_dir):
@@ -22,7 +20,6 @@ class BankingMonitor:
                 database=os.getenv('DB_NAME', 'mydata'), user=os.getenv('DB_USER', 'user'),
                 password=os.getenv('DB_PASSWORD', 'userpass'))
         except Exception as e:
-            # logger.warning(f"Database connection failed: {str(e)}")
             return None
         
     def load_data(self):
@@ -32,7 +29,6 @@ class BankingMonitor:
                 with open(path, 'r') as f:
                     self.data[table] = json.load(f)
             except FileNotFoundError:
-                # logger.warning(f"{table}.json not found")
                 self.data[table] = []
 
     def add_alert(self, CustomerID, alert_type, level, description, TransactionID=None):
@@ -94,32 +90,26 @@ class BankingMonitor:
                              f'Transaction {amount:,.0f} VND without strong auth', 
                              txn.get('TransactionID'))
             
-
-
-
             # Unverified device
             try:
                 cursor.execute(
                     "SELECT IsVerified FROM Device WHERE DeviceID = %s", (txn.get('DeviceID'),))
                 is_verified = cursor.fetchone()[0] or False
             except Exception as e:
-                # logger.error(f"Error fetching device verification status: {str(e)}")
-                is_verified = None
-            
+                is_verified = False
+
             if not device_map.get(txn.get('DeviceID'), False) and not is_verified:
                 violations += 1
                 self.add_alert(CustomerID, 'UNVERIFIED_DEVICE', 'MEDIUM',
                              'Transaction from unverified device',
                              txn.get('TransactionID'))
             
-            # # Check daily limits
             try: 
                 cursor.execute(
                     "SELECT SUM(Amount) FROM Transaction WHERE FromAccountID = %s AND DATE(Timestamp) = %s",
                     (txn.get('FromAccountID'), today))
                 total = cursor.fetchone()[0] or 0
             except Exception as e:
-                # logger.error(f"Error fetching daily total: {str(e)}")
                 total = 0
 
             txn_date = timestamp[:10] if timestamp else ''
@@ -134,12 +124,9 @@ class BankingMonitor:
                              f'Daily total {total:,.0f} VND without strong auth',
                              txn.get('TransactionID'))
 
-        
-        # logger.info(f"Risk violations: {violations}")
         return violations
 
     def run_audit(self):
-        # logger.info("Starting audit")
         self.load_data()
         
         risk_violations = self.check_risks()
@@ -148,8 +135,6 @@ class BankingMonitor:
         alerts_file = os.path.join(self.data_dir, 'risk_alerts.json')
         with open(alerts_file, 'w') as f:
             json.dump(self.alerts, f, indent=2)
-        
-        # logger.info(f"Audit complete - Risks: {risk_violations}, Alerts: {len(self.alerts)}")
 
 def main():
     parser = argparse.ArgumentParser()

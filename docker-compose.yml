@@ -89,8 +89,9 @@ services:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
       - ./sql:/opt/airflow/sql
-      - ./config:/opt/airflow/config
+      - .env:/opt/airflow/.env
       - ./requirements.txt:/opt/airflow/requirements.txt
+
     command: webserver
 
   airflow-scheduler:
@@ -111,7 +112,7 @@ services:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
       - ./sql:/opt/airflow/sql
-      - ./config:/opt/airflow/config
+      - .env:/opt/airflow/.env  
       - ./requirements.txt:/opt/airflow/requirements.txt
     command: scheduler
 
@@ -124,7 +125,6 @@ services:
       - "8501:8501"
     volumes:
       - ./visualization:/app/visualization 
-      - ./config:/app/config
     environment:
       - PYTHONUNBUFFERED=1
       - DB_HOST=postgres_data

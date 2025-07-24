@@ -149,8 +149,6 @@ class DataQualityChecker:
                                 if entity_key not in pending_fks[actual_fk][fk_value]:
                                     pending_fks[actual_fk][fk_value][entity_key] = i   
 
-                                print(f"Foreign key {fk_field}: {fk_value} not found in {actual_fk} for {entity_key} at index {i}")
-
                                 self.quality_issues.append(
                                     f"Invalid foreign key {fk_field}: {fk_value} not found in {field_to_entity[actual_fk]}"
                                 )
@@ -215,10 +213,7 @@ class DataQualityChecker:
                         
                         continue
                     else:
-                        # Check existence for other tables (devices, accounts, transactions, auth_logs)
-                        print(f"Checking {entity_key} in database table {db_table}")
                         if not seen_values.get(id_field):
-                            print(f"No {id_field} to check in {db_table}")
                             continue
                         ids_to_check = list(seen_values[id_field].keys())
                         placeholders = ','.join(['%s'] * len(ids_to_check))
@@ -229,7 +224,6 @@ class DataQualityChecker:
                                 ids_to_check
                             )
                             existing_ids = set(row[0] for row in cursor.fetchall())
-                            print(f"Existing {id_field} in database: {existing_ids}")
                             
                             for existing_id in existing_ids:
                                 if existing_id in seen_values[id_field]:
@@ -257,10 +251,8 @@ class DataQualityChecker:
                             fk_values
                         )
                         existing = set(row[0] for row in cursor.fetchall())
-                        print(f"Existing foreign keys for {actual_fk}: {existing}")
                         missing = set(fk_values) - existing
                     except Exception as e:
-                        print(f"DB FK check batch failed for {actual_fk}: {e}")
                         logger.warning(f"DB FK check batch failed for {actual_fk}: {e}")
                         missing = set()
 
@@ -282,7 +274,6 @@ class DataQualityChecker:
                 cursor.close()
                 conn.close()
             except Exception as e:
-                print(f"Database connection or query failed: {str(e)}")
                 logger.warning(f"Database connection or query failed: {str(e)}")
                 conn.close()
 

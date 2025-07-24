@@ -7,10 +7,8 @@ import os
 from datetime import datetime, timedelta
 import numpy as np
 
-# Page config
 st.set_page_config(
     page_title="Bank Data Analytics Dashboard",
-    page_icon="🏦",
     layout="wide"
 )
 
@@ -107,7 +105,7 @@ def create_customer_analysis(data):
 
 def create_account_analysis(data):
     """Create account analysis charts"""
-    st.subheader("💳 Account Analysis")
+    st.subheader("Account Analysis")
     
     col1, col2 = st.columns(2)
     
@@ -134,7 +132,7 @@ def create_account_analysis(data):
 
 def create_transaction_analysis(data):
     """Create transaction analysis charts"""
-    st.subheader("💰 Transaction Analysis")
+    st.subheader("Transaction Analysis")
     
     col1, col2 = st.columns(2)
     
@@ -161,7 +159,7 @@ def create_transaction_analysis(data):
     
     # Transaction timeline
     if 'timestamp' in data['transactions'].columns:
-        st.subheader("📈 Transaction Timeline")
+        st.subheader("Transaction Timeline")
         transactions_with_date = data['transactions'].copy()
         transactions_with_date['timestamp'] = pd.to_datetime(transactions_with_date['timestamp'])
         transactions_with_date['date'] = transactions_with_date['timestamp'].dt.date
@@ -201,7 +199,7 @@ def create_transaction_analysis(data):
 
 def create_auth_analysis(data):
     """Create authentication analysis charts"""
-    st.subheader("🔐 Authentication Analysis")
+    st.subheader("Authentication Analysis")
     
     col1, col2 = st.columns(2)
     
