@@ -134,7 +134,7 @@ def create_transaction_analysis(data):
     """Create transaction analysis charts"""
     st.subheader("Transaction Analysis")
     
-    col1, col2 = st.columns(2)
+    col1, = st.columns(1)
     
     with col1:
         # Transaction amounts distribution
@@ -147,16 +147,7 @@ def create_transaction_analysis(data):
         fig.update_layout(xaxis_title="Amount ($)")
         st.plotly_chart(fig, use_container_width=True)
     
-    with col2:
-        # Risk flag analysis
-        risk_counts = data['transactions']['riskflag'].value_counts()
-        fig = px.pie(
-            values=risk_counts.values,
-            names=['High Risk' if x else 'Normal' for x in risk_counts.index],
-            title="Transaction Risk Analysis"
-        )
-        st.plotly_chart(fig, use_container_width=True)
-    
+
     # Transaction timeline
     if 'timestamp' in data['transactions'].columns:
         st.subheader("Transaction Timeline")

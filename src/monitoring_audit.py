@@ -43,7 +43,6 @@ class BankingMonitor:
 
     def check_risks(self):
         violations = 0
-
         # Create mappings
         account_map = {a.get('AccountID'): a.get('CustomerID') 
                       for a in self.data.get('accounts', [])}
@@ -83,9 +82,8 @@ class BankingMonitor:
             auth_key = f"{CustomerID}_{timestamp}"
             AuthMethod = AuthMethods.get(auth_key, 'PASSWORD')
             # High value without strong auth
-            if amount > 10000000 and AuthMethod not in ['BIOMETRIC', 'OTP']:
+            if amount > 10000000 and AuthMethod not in ['BIOMETRIC']:
                 violations += 1
-                print(f"High value transaction without strong auth: {amount} VND")
                 self.add_alert(CustomerID, 'HIGH_VALUE_NO_STRONG_AUTH', 'HIGH',
                              f'Transaction {amount:,.0f} VND without strong auth', 
                              txn.get('TransactionID'))
@@ -97,7 +95,7 @@ class BankingMonitor:
                 is_verified = cursor.fetchone()[0] or False
             except Exception as e:
                 is_verified = False
-
+                
             if not device_map.get(txn.get('DeviceID'), False) and not is_verified:
                 violations += 1
                 self.add_alert(CustomerID, 'UNVERIFIED_DEVICE', 'MEDIUM',

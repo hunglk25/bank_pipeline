@@ -40,7 +40,7 @@ class DataQualityChecker:
             ('customers', 'Customer', ['CustomerID', 'NationalID']),
             ('devices', 'Device', ['DeviceID', 'CustomerID']),
             ('accounts', 'Account', ['AccountID', 'CustomerID']),
-            ('transactions', 'Transaction', ['TransactionID', 'FromAccountID', 'ToAccountID']),
+            ('transactions', 'Transaction', ['TransactionID', 'FromAccountID', 'ToAccountID', 'DeviceID']),
             ('auth_logs', 'AuthenticationLog', ['AuthID', 'CustomerID', 'DeviceID']),
         ]
 

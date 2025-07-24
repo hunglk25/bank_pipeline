@@ -1,8 +1,4 @@
 #!/bin/bash
-
-# Banking Data Pipeline Setup Script
-# This script sets up and initializes the complete data pipeline
-
 set -e  # Exit on any error
 
 echo "Banking Data Pipeline Setup Starting..."

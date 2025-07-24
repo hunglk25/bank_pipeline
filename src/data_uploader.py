@@ -63,7 +63,7 @@ class DataUploader:
             'customers': {
                 'columns': ['CustomerID', 'NationalID', 'Name', 'Address', 'Contact', 'Username', 'PasswordHash'],
                 'sql': """INSERT INTO Customer (CustomerID, NationalID, Name, Address, Contact, Username, PasswordHash)
-                         VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT (Username) DO NOTHING"""
+                         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             },
             'devices': {
                 'columns': ['DeviceID', 'CustomerID', 'DeviceType', 'DeviceInfo', 'IsVerified', 'LastUsed'],
@@ -76,8 +76,8 @@ class DataUploader:
                          VALUES (%s, %s, %s, %s, %s, %s)"""
             },
             'transactions': {
-                'columns': ['TransactionID', 'FromAccountID', 'ToAccountID', 'TxnType', 'Amount', 'Timestamp', 'RiskFlag'],
-                'sql': """INSERT INTO Transaction (TransactionID, FromAccountID, ToAccountID, TxnType, Amount, Timestamp, RiskFlag)
+                'columns': ['TransactionID', 'FromAccountID', 'ToAccountID', 'DeviceID', 'TxnType', 'Amount', 'Timestamp'],
+                'sql': """INSERT INTO Transaction (TransactionID, FromAccountID, ToAccountID, DeviceID, TxnType, Amount, Timestamp)
                          VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             },
             'auth_logs': {

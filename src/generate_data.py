@@ -24,9 +24,17 @@ class BankDataGenerator:
     def generate_customers(self, n=10):
         logger.info(f"Generating {n} customers...")
         customers = []
+        used_ids = set()
         for i in range(n):
+            # Sometimes generate duplicate IDs
+            if random.random() < 0.2 and used_ids:  # 20% chance of duplicate
+                customer_id = random.choice(list(used_ids))
+            else:
+                customer_id = i + 1
+            used_ids.add(customer_id)
+            
             customers.append({
-                'CustomerID': i + 1,
+                'CustomerID': customer_id,
                 'NationalID': ''.join(random.choices('0123456789', k=12)),
                 'Name': fake.name(),
                 'Address': fake.address().replace("\n", ", "),
@@ -41,8 +49,17 @@ class BankDataGenerator:
         logger.info("Generating devices...")
         devices = []
         device_id = 1
+        used_ids = set()
         for customer in customers_data:
             for _ in range(random.randint(1, 2)):
+                # Sometimes generate duplicate IDs
+                if random.random() < 0.15 and used_ids:  # 15% chance of duplicate
+                    device_id = random.choice(list(used_ids))
+                else:
+                    while device_id in used_ids:
+                        device_id += 1
+                used_ids.add(device_id)
+                
                 devices.append({
                     'DeviceID': device_id,
                     'CustomerID': customer['CustomerID'],
@@ -59,8 +76,17 @@ class BankDataGenerator:
         logger.info("Generating accounts...")
         accounts = []
         account_id = 1
+        used_ids = set()
         for customer in customers_data:
             for _ in range(random.randint(1, 3)):
+                # Sometimes generate duplicate IDs
+                if random.random() < 0.1 and used_ids:  # 10% chance of duplicate
+                    account_id = random.choice(list(used_ids))
+                else:
+                    while account_id in used_ids:
+                        account_id += 1
+                used_ids.add(account_id)
+                
                 accounts.append({
                     'AccountID': account_id,
                     'CustomerID': customer['CustomerID'],
@@ -73,25 +99,34 @@ class BankDataGenerator:
         logger.info(f"Generated {len(accounts)} accounts")
         return accounts
 
-    def generate_transactions(self, accounts_data):
+    def generate_transactions(self, accounts_data, device_data):
         logger.info("Generating transactions...")
         if len(accounts_data) < 2:
             return []
         
         transactions = []
+        used_ids = set()
         for i in range(50):
+            # Sometimes generate duplicate IDs
+            if random.random() < 0.25 and used_ids:  # 25% chance of duplicate
+                transaction_id = random.choice(list(used_ids))
+            else:
+                transaction_id = i + 1
+            used_ids.add(transaction_id)
+            
             from_acc = random.choice(accounts_data)
             to_acc = random.choice([acc for acc in accounts_data if acc['AccountID'] != from_acc['AccountID']])
-            amount = round(random.uniform(1000, 20000000), 2)
+            device_id = random.choice(device_data)
+            amount = round(random.uniform(10000000, 20000000), 2)
             
             transactions.append({
-                'TransactionID': i + 1,
+                'TransactionID': transaction_id,
                 'FromAccountID': from_acc['AccountID'],
                 'ToAccountID': to_acc['AccountID'],
+                'DeviceID': device_id['DeviceID'],
                 'TxnType': random.choice(['TRANSFER', 'PAYMENT']),
                 'Amount': amount,
                 'Timestamp': fake.date_time_between(start_date='-10d', end_date='now'),
-                'RiskFlag': amount > 20000
             })
         logger.info(f"Generated {len(transactions)} transactions")
         return transactions
@@ -102,9 +137,17 @@ class BankDataGenerator:
             return []
         
         auth_logs = []
+        used_ids = set()
         for i in range(30):
+            # Sometimes generate duplicate IDs
+            if random.random() < 0.3 and used_ids:  # 30% chance of duplicate
+                auth_id = random.choice(list(used_ids))
+            else:
+                auth_id = i + 1
+            used_ids.add(auth_id)
+            
             auth_logs.append({
-                'AuthID': i + 1,
+                'AuthID': auth_id,
                 'CustomerID': random.choice(customers_data)['CustomerID'],
                 'DeviceID': random.choice(devices_data)['DeviceID'],
                 'AuthMethod': random.choice(['OTP', 'Biometric', 'Password']),
@@ -120,7 +163,7 @@ class BankDataGenerator:
         customers = self.generate_customers(customer_count)
         devices = self.generate_devices(customers)
         accounts = self.generate_accounts(customers)
-        transactions = self.generate_transactions(accounts)
+        transactions = self.generate_transactions(accounts, devices)
         auth_logs = self.generate_auth_logs(customers, devices)
         
         data = {
