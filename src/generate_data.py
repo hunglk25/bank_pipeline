@@ -82,7 +82,7 @@ class BankDataGenerator:
         for i in range(50):
             from_acc = random.choice(accounts_data)
             to_acc = random.choice([acc for acc in accounts_data if acc['AccountID'] != from_acc['AccountID']])
-            amount = round(random.uniform(10000000, 90000000), 2)
+            amount = round(random.uniform(1000, 20000000), 2)
             
             transactions.append({
                 'TransactionID': i + 1,

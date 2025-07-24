@@ -1,12 +1,3 @@
-"""
-Bank Data Pipeline DAG
-A comprehensive Airflow DAG for banking data processing pipeline that:
-1. Generates synthetic banking data
-2. Performs data quality checks
-3. Uploads valid data to PostgreSQL
-4. Logs errors and failures for monitoring
-"""
-
 import os
 import sys
 from datetime import datetime, timedelta
