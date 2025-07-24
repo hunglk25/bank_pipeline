@@ -33,6 +33,9 @@ Data Generation → Quality Checks → PostgreSQL Storage → Risk Monitoring �
 
 ## Database Schema
 The system uses PostgreSQL with the following core tables:
+
+![Database Schema](img/image.png)
+
 - **Customer**: Customer information with NationalID uniqueness
 - **Device**: Customer devices with verification status
 - **Account**: Customer accounts with balance tracking

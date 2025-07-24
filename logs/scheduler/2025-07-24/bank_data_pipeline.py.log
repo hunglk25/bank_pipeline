@@ -82,3 +82,108 @@
 [2025-07-24T15:40:18.000+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:40:17.999+0000] {dag.py:3096} INFO - Sync 1 DAGs
 [2025-07-24T15:40:18.033+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:40:18.032+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
 [2025-07-24T15:40:18.062+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.147 seconds
+[2025-07-24T15:40:48.226+0000] {processor.py:161} INFO - Started process (PID=290) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:40:48.227+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:40:48.229+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:40:48.228+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:40:48.253+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:40:48.289+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:40:48.289+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:40:48.316+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:40:48.315+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:40:48.336+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.120 seconds
+[2025-07-24T15:41:18.439+0000] {processor.py:161} INFO - Started process (PID=295) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:18.441+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:41:18.444+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:18.444+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:18.469+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:18.507+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:18.507+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:41:18.534+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:18.534+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:41:18.558+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.130 seconds
+[2025-07-24T15:41:48.714+0000] {processor.py:161} INFO - Started process (PID=300) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:48.715+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:41:48.718+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:48.717+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:48.748+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:41:48.793+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:48.793+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:41:48.825+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:41:48.825+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:41:48.856+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.154 seconds
+[2025-07-24T15:42:18.916+0000] {processor.py:161} INFO - Started process (PID=305) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:18.917+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:42:18.919+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:18.919+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:18.947+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:18.993+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:18.992+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:42:19.025+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:19.025+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:42:19.055+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.149 seconds
+[2025-07-24T15:42:49.224+0000] {processor.py:161} INFO - Started process (PID=310) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:49.225+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:42:49.226+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:49.226+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:49.249+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:42:49.288+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:49.288+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:42:49.317+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:42:49.317+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:42:49.339+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.126 seconds
+[2025-07-24T15:43:19.412+0000] {processor.py:161} INFO - Started process (PID=315) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:19.413+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:43:19.415+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:19.415+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:19.438+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:19.477+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:19.476+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:43:19.507+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:19.507+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:43:19.530+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.126 seconds
+[2025-07-24T15:43:49.717+0000] {processor.py:161} INFO - Started process (PID=320) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:49.718+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:43:49.720+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:49.719+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:49.744+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:43:49.787+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:49.787+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:43:49.820+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:43:49.820+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:43:49.850+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.142 seconds
+[2025-07-24T15:44:19.917+0000] {processor.py:161} INFO - Started process (PID=325) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:19.918+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:44:19.920+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:19.919+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:19.943+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:19.987+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:19.986+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:44:20.019+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:20.019+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:44:20.044+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.135 seconds
+[2025-07-24T15:44:50.224+0000] {processor.py:161} INFO - Started process (PID=330) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:50.226+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:44:50.228+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:50.228+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:50.257+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:44:50.297+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:50.297+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:44:50.328+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:44:50.328+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:44:50.353+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.138 seconds
+[2025-07-24T15:45:20.410+0000] {processor.py:161} INFO - Started process (PID=335) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:20.411+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:45:20.412+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:20.412+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:20.441+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:20.483+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:20.483+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:45:20.513+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:20.513+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:45:20.537+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.138 seconds
+[2025-07-24T15:45:50.701+0000] {processor.py:161} INFO - Started process (PID=340) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:50.702+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:45:50.704+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:50.703+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:50.727+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:45:50.766+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:50.766+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:45:50.795+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:45:50.795+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:45:50.818+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.124 seconds
+[2025-07-24T15:46:20.911+0000] {processor.py:161} INFO - Started process (PID=345) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:20.912+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:46:20.913+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:20.913+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:20.936+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:20.975+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:20.975+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:46:21.012+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:21.011+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:46:21.037+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.138 seconds
+[2025-07-24T15:46:51.206+0000] {processor.py:161} INFO - Started process (PID=350) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:51.207+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:46:51.209+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:51.209+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:51.234+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:46:51.274+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:51.273+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:46:51.302+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:46:51.302+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:46:51.325+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.129 seconds
+[2025-07-24T15:47:21.382+0000] {processor.py:161} INFO - Started process (PID=355) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:21.383+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:47:21.385+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:21.384+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:21.406+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:21.445+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:21.445+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:47:21.473+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:21.473+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:47:21.496+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.124 seconds
+[2025-07-24T15:47:51.659+0000] {processor.py:161} INFO - Started process (PID=360) to work on /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:51.660+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/bank_data_pipeline.py for tasks to queue
+[2025-07-24T15:47:51.661+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:51.661+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:51.683+0000] {processor.py:840} INFO - DAG(s) 'bank_data_pipeline' retrieved from /opt/airflow/dags/bank_data_pipeline.py
+[2025-07-24T15:47:51.723+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:51.723+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-07-24T15:47:51.753+0000] {logging_mixin.py:188} INFO - [2025-07-24T15:47:51.753+0000] {dag.py:3954} INFO - Setting next_dagrun for bank_data_pipeline to 2025-07-24 00:00:00+00:00, run_after=2025-07-25 00:00:00+00:00
+[2025-07-24T15:47:51.776+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/bank_data_pipeline.py took 0.125 seconds
