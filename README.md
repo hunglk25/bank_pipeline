@@ -47,7 +47,7 @@ The system uses PostgreSQL with the following core tables:
 The pipeline performs comprehensive quality validation:
 - **Null/Missing Values**: Validates critical ID fields (CustomerID, NationalID, Username)
 - **Uniqueness Constraints**: Checks NationalID and Username duplicates in data and database
-- **Format Validation**: CCCD format (12 digits) and Passport format (A12345678)
+- **Format Validation**: CCCD format (12 digits)
 - **Foreign Key Integrity**: Ensures referential integrity between tables
 - **Database Existence**: Prevents duplicate NationalID/Username in existing database
 
