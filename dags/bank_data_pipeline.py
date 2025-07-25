@@ -47,13 +47,13 @@ def setup_task_logger(run_id, task_id):
 
 # DAG default arguments
 default_args = {
-    'owner': 'data_engineering_team_2',
+    'owner': 'data_engineering_team',
     'depends_on_past': False,
     'start_date': days_ago(1),
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 2,
-    'retry_delay': timedelta(minutes=5),
+    'retry_delay': timedelta(minutes=2),
     'catchup': False,
 }
 
@@ -109,7 +109,7 @@ def generate_banking_data(**context):
         raise
 
 
-def run_data_quality_checks_2(**context):
+def run_data_quality_checks(**context):
     """Run comprehensive data quality checks using generated output"""
     import subprocess
 
@@ -122,7 +122,7 @@ def run_data_quality_checks_2(**context):
 
         # Lấy path từ XCom
         ti = context['ti']
-        data_path = ti.xcom_pull(task_ids='generate_banking_data_2', key='data_output_path')
+        data_path = ti.xcom_pull(task_ids='generate_banking_data', key='data_output_path')
         if not data_path:
             raise AirflowException("No data path found from previous task.")
 
@@ -156,7 +156,7 @@ def run_data_quality_checks_2(**context):
         logger.error(f"{error_msg} - {str(e)}")
         raise
 
-def run_risk_alerts_2(**context):
+def run_risk_alerts(**context):
     """Run risk alert checks using generated output"""
     import subprocess
 
@@ -169,7 +169,7 @@ def run_risk_alerts_2(**context):
 
         # Lấy path từ XCom
         ti = context['ti']
-        data_path = ti.xcom_pull(task_ids='generate_banking_data_2', key='data_output_path')
+        data_path = ti.xcom_pull(task_ids='generate_banking_data', key='data_output_path')
         if not data_path:
             raise AirflowException("No data path found from previous task.")
 
@@ -201,7 +201,7 @@ def run_risk_alerts_2(**context):
         raise
 
 
-def upload_data_to_postgres_2(**context):
+def upload_data_to_postgres(**context):
     """Upload validated data to PostgreSQL"""
     import subprocess
     
@@ -213,7 +213,7 @@ def upload_data_to_postgres_2(**context):
         logger.info(f"Starting data upload for run {run_id}")
 
         ti = context['ti']
-        dir = ti.xcom_pull(task_ids='generate_banking_data_2', key='data_output_path')
+        dir = ti.xcom_pull(task_ids='generate_banking_data', key='data_output_path')
         
         # Run data upload script
         result = subprocess.run(
@@ -242,7 +242,7 @@ def upload_data_to_postgres_2(**context):
         logger.error(f"{error_msg} - {str(e)}")
         raise
 
-def log_pipeline_failure_2(**context):
+def log_pipeline_failures(**context):
     """Log pipeline failure details"""
     task_id = context['task_instance'].task_id
     run_id = context['run_id']
@@ -251,13 +251,13 @@ def log_pipeline_failure_2(**context):
     try:
         # Get failure information from upstream tasks
         quality_failed = context['task_instance'].xcom_pull(
-            task_ids='run_data_quality_checks_2', 
+            task_ids='run_data_quality_checks', 
             key='quality_check_failed'
         )
         
         if quality_failed:
             error_details = context['task_instance'].xcom_pull(
-                task_ids='run_data_quality_checks_2', 
+                task_ids='run_data_quality_checks', 
                 key='quality_error_details'
             )
             logger.error(f"Quality check failures logged: {error_details}")
@@ -271,7 +271,7 @@ def log_pipeline_failure_2(**context):
         logger.error(f"Error logging pipeline failure: {str(e)}")
         print(f"Error logging pipeline failure: {str(e)}")
 
-def notify_2(**context):
+def notify(**context):
     """Send notifications"""
     task_id = context['task_instance'].task_id
     run_id = context['run_id']
@@ -304,64 +304,65 @@ dag = DAG(
     doc_md=__doc__
 )
 
-# Task 3: Generate banking data
-generate_data_2 = PythonOperator(
-    task_id='generate_banking_data_2',
+# Task 1: Generate banking data
+generate_data = PythonOperator(
+    task_id='generate_banking_data',
     python_callable=generate_banking_data,
     dag=dag,
     doc_md="Generate synthetic banking data including customers, accounts, transactions"
 )
 
-# Task 4: Run data quality checks
-quality_checks_2 = PythonOperator(
-    task_id='run_data_quality_checks_2',
-    python_callable=run_data_quality_checks_2,
+# Task 2: Run data quality checks
+quality_checks = PythonOperator(
+    task_id='run_data_quality_checks',
+    python_callable=run_data_quality_checks,
     dag=dag,
     doc_md="Run comprehensive data quality checks on generated data"
 )
 
-risk_alerts_2 = PythonOperator(
-    task_id='risk_alerts_2',
-    python_callable=run_risk_alerts_2,
+# Task 3: Run risk alert checks
+risk_alerts = PythonOperator(
+    task_id='risk_alerts',
+    python_callable=run_risk_alerts,
     dag=dag,
     doc_md="Run risk alert checks on generated data"
 )
     
 
-# Task 5: Upload data to PostgreSQL
-upload_data_2 = PythonOperator(
-    task_id='upload_data_to_postgres_2',
-    python_callable=upload_data_to_postgres_2,
+# Task 4: Upload data to PostgreSQL
+upload_data = PythonOperator(
+    task_id='upload_data_to_postgres',
+    python_callable=upload_data_to_postgres,
     trigger_rule='none_failed',  # Only run if quality checks pass
     dag=dag,
     doc_md="Upload validated data to PostgreSQL database"
 )
 
-# Task 6: Log failures (runs if any task fails)
-log_failures_2 = PythonOperator(
-    task_id='log_pipeline_failures_2',
-    python_callable=log_pipeline_failure_2,
+# Task 5: Log failures (runs if any task fails)
+log_failures = PythonOperator(
+    task_id='log_pipeline_failures',
+    python_callable=log_pipeline_failures,
     trigger_rule='one_failed',  # Run if any upstream task fails
     dag=dag,
     doc_md="Log pipeline failures and error details"
 )
 
-# Task 7: Cleanup and notify success
-cleanup_notify_2 = PythonOperator(
-    task_id='cleanup_and_notify_2',
-    python_callable=notify_2,
+# Task 6: Cleanup and notify success
+cleanup_notify = PythonOperator(
+    task_id='cleanup_and_notify',
+    python_callable=notify,
     trigger_rule='none_failed',  # Only run if all upstream tasks succeed
     dag=dag,
     doc_md="Cleanup resources and send success notifications"
 )
 
 # Define task dependencies
-generate_data_2 >> quality_checks_2 >> risk_alerts_2
+generate_data >> quality_checks >> risk_alerts
 
 # Branching: If quality checks pass -> upload data, if fail -> log failures
-risk_alerts_2 >> [upload_data_2, log_failures_2]
+risk_alerts >> [upload_data, log_failures]
 
 # Success path: upload -> cleanup
-upload_data_2 >> cleanup_notify_2
+upload_data >> cleanup_notify
 
 # The log_failures task is terminal for the failure

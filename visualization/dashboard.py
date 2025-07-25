@@ -75,7 +75,7 @@ def create_overview_metrics(data):
 
 def create_customer_analysis(data):
     """Create customer analysis charts"""
-    st.subheader("👥 Customer Analysis")
+    st.subheader("Customer Analysis")
     
     col1, col2 = st.columns(2)
     
@@ -250,7 +250,7 @@ def create_auth_analysis(data):
 
 def create_data_tables(data):
     """Create data tables for detailed view"""
-    st.subheader("📊 Data Tables")
+    st.subheader("Data Tables")
     
     table_option = st.selectbox(
         "Select table to view:",

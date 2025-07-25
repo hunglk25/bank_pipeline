@@ -1,0 +1,5 @@
+2025-07-25 04:28:26,157 - INFO - Starting data quality checks for run manual__2025-07-25T04:28:23.731358+00:00
+2025-07-25 04:28:26,413 - INFO - Data quality checks passed: Quality check completed - 22 issues found
+Clean data saved - check failed_records.json for details
+
+2025-07-25 04:28:26,413 - INFO - Task completed successfully

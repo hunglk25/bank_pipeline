@@ -1,0 +1,23 @@
+[2025-07-25T04:20:04.119+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-07-25T04:20:04.146+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bank_data_pipeline.run_data_quality_checks_2 manual__2025-07-25T04:20:02.228816+00:00 [queued]>
+[2025-07-25T04:20:04.152+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bank_data_pipeline.run_data_quality_checks_2 manual__2025-07-25T04:20:02.228816+00:00 [queued]>
+[2025-07-25T04:20:04.152+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-07-25T04:20:04.162+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): run_data_quality_checks_2> on 2025-07-25 04:20:02.228816+00:00
+[2025-07-25T04:20:04.169+0000] {standard_task_runner.py:63} INFO - Started process 664 to run task
+[2025-07-25T04:20:04.173+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bank_data_pipeline', 'run_data_quality_checks_2', 'manual__2025-07-25T04:20:02.228816+00:00', '--job-id', '18', '--raw', '--subdir', 'DAGS_FOLDER/bank_data_pipeline.py', '--cfg-path', '/tmp/tmpsgcbbvlq']
+[2025-07-25T04:20:04.175+0000] {standard_task_runner.py:91} INFO - Job 18: Subtask run_data_quality_checks_2
+[2025-07-25T04:20:04.189+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.10/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-25T04:20:04.225+0000] {task_command.py:426} INFO - Running <TaskInstance: bank_data_pipeline.run_data_quality_checks_2 manual__2025-07-25T04:20:02.228816+00:00 [running]> on host f91aa71dc96e
+[2025-07-25T04:20:04.298+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineering_team_2' AIRFLOW_CTX_DAG_ID='bank_data_pipeline' AIRFLOW_CTX_TASK_ID='run_data_quality_checks_2' AIRFLOW_CTX_EXECUTION_DATE='2025-07-25T04:20:02.228816+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-25T04:20:02.228816+00:00'
+[2025-07-25T04:20:04.298+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-07-25T04:20:04.309+0000] {bank_data_pipeline.py:121} INFO - Starting data quality checks for run manual__2025-07-25T04:20:02.228816+00:00
+[2025-07-25T04:20:04.549+0000] {bank_data_pipeline.py:144} INFO - Data quality checks passed: Quality check completed - 26 issues found
+Clean data saved - check failed_records.json for details
+
+[2025-07-25T04:20:04.550+0000] {bank_data_pipeline.py:145} INFO - Task completed successfully
+[2025-07-25T04:20:04.563+0000] {python.py:237} INFO - Done. Returned value was: {'status': 'success', 'message': 'Data quality checks passed'}
+[2025-07-25T04:20:04.563+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-07-25T04:20:04.589+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bank_data_pipeline, task_id=run_data_quality_checks_2, run_id=manual__2025-07-25T04:20:02.228816+00:00, execution_date=20250725T042002, start_date=20250725T042004, end_date=20250725T042004
+[2025-07-25T04:20:04.628+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-07-25T04:20:04.652+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-07-25T04:20:04.653+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

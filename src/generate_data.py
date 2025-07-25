@@ -25,12 +25,18 @@ class BankDataGenerator:
         logger.info(f"Generating {n} customers...")
         customers = []
         used_ids = set()
+        
         for i in range(n):
-            # Sometimes generate duplicate IDs
-            if random.random() < 0.2 and used_ids:  # 20% chance of duplicate
+            # Sometimes generate duplicate IDs (20% chance)
+            if random.random() < 0.2 and used_ids:
                 customer_id = random.choice(list(used_ids))
             else:
-                customer_id = i + 1
+                # Generate random ID between 1000 and 999999
+                customer_id = random.randint(1000, 999999)
+                # Ensure uniqueness for new IDs
+                while customer_id in used_ids:
+                    customer_id = random.randint(1000, 999999)
+            
             used_ids.add(customer_id)
             
             customers.append({
@@ -48,16 +54,19 @@ class BankDataGenerator:
     def generate_devices(self, customers_data):
         logger.info("Generating devices...")
         devices = []
-        device_id = 1
         used_ids = set()
+        
         for customer in customers_data:
             for _ in range(random.randint(1, 2)):
-                # Sometimes generate duplicate IDs
-                if random.random() < 0.15 and used_ids:  # 15% chance of duplicate
+                # Sometimes generate duplicate IDs (15% chance)
+                if random.random() < 0.15 and used_ids:
                     device_id = random.choice(list(used_ids))
                 else:
+                    # Generate random ID between 10000 and 9999999
+                    device_id = random.randint(10000, 9999999)
                     while device_id in used_ids:
-                        device_id += 1
+                        device_id = random.randint(10000, 9999999)
+                
                 used_ids.add(device_id)
                 
                 devices.append({
@@ -68,23 +77,25 @@ class BankDataGenerator:
                     'IsVerified': random.choice([True, False]),
                     'LastUsed': fake.date_time_between(start_date='-30d', end_date='now')
                 })
-                device_id += 1
         logger.info(f"Generated {len(devices)} devices")
         return devices
 
     def generate_accounts(self, customers_data):
         logger.info("Generating accounts...")
         accounts = []
-        account_id = 1
         used_ids = set()
+        
         for customer in customers_data:
             for _ in range(random.randint(1, 3)):
-                # Sometimes generate duplicate IDs
-                if random.random() < 0.1 and used_ids:  # 10% chance of duplicate
+                # Sometimes generate duplicate IDs (10% chance)
+                if random.random() < 0.1 and used_ids:
                     account_id = random.choice(list(used_ids))
                 else:
+                    # Generate random ID between 100000 and 99999999
+                    account_id = random.randint(100000, 99999999)
                     while account_id in used_ids:
-                        account_id += 1
+                        account_id = random.randint(100000, 99999999)
+                
                 used_ids.add(account_id)
                 
                 accounts.append({
@@ -95,7 +106,6 @@ class BankDataGenerator:
                     'Currency': random.choice(['USD', 'VND', 'EUR']),
                     'Status': random.choice(['ACTIVE', 'FROZEN', 'CLOSED'])
                 })
-                account_id += 1
         logger.info(f"Generated {len(accounts)} accounts")
         return accounts
 
@@ -106,12 +116,17 @@ class BankDataGenerator:
         
         transactions = []
         used_ids = set()
+        
         for i in range(50):
-            # Sometimes generate duplicate IDs
-            if random.random() < 0.25 and used_ids:  # 25% chance of duplicate
+            # Sometimes generate duplicate IDs (25% chance)
+            if random.random() < 0.25 and used_ids:
                 transaction_id = random.choice(list(used_ids))
             else:
-                transaction_id = i + 1
+                # Generate random ID between 1000000 and 999999999
+                transaction_id = random.randint(1000000, 999999999)
+                while transaction_id in used_ids:
+                    transaction_id = random.randint(1000000, 999999999)
+            
             used_ids.add(transaction_id)
             
             from_acc = random.choice(accounts_data)
@@ -138,12 +153,17 @@ class BankDataGenerator:
         
         auth_logs = []
         used_ids = set()
+        
         for i in range(30):
-            # Sometimes generate duplicate IDs
-            if random.random() < 0.3 and used_ids:  # 30% chance of duplicate
+            # Sometimes generate duplicate IDs (30% chance)
+            if random.random() < 0.3 and used_ids:
                 auth_id = random.choice(list(used_ids))
             else:
-                auth_id = i + 1
+                # Generate random ID between 10000 and 9999999
+                auth_id = random.randint(10000, 9999999)
+                while auth_id in used_ids:
+                    auth_id = random.randint(10000, 9999999)
+            
             used_ids.add(auth_id)
             
             auth_logs.append({
