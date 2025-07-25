@@ -1,9 +1,2 @@
-# Environment
-.env
-.venv/
-venv/
-ENV/
-env.bak/
-
 # Python
 __pycache__/
