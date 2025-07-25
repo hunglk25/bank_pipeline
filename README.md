@@ -3,13 +3,12 @@
 ## Project Structure
 ```
 ├── dags/                          # Airflow DAGs
-│   └── bank_data_pipeline2.py    # Main pipeline DAG
+│   └── bank_data_pipeline.py    # Main pipeline DAG
 ├── src/                           # Core pipeline components
 │   ├── generate_data.py          # Data generator
 │   ├── data_quality.py           # Quality validator
 │   ├── data_uploader.py          # Database uploader
 │   ├── monitoring_audit.py       # Risk monitoring
-│   └── pipeline_logger.py        # Logging utilities
 ├── visualization/                 # Dashboard
 │   └── dashboard.py              # Streamlit dashboard
 ├── sql/                          # Database schema
