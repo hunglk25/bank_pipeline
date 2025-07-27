@@ -74,6 +74,7 @@ Automated risk detection with 3 core rules:
 3. Run pipeline:
    - Enable `bank_data_pipeline` DAG in Airflow
    - Trigger manual run or wait for scheduled execution
+   - You can change CUSTOMER_COUNT in .env file to adjust the number of users you want to generate.
 
 ## Access Information
 - **Airflow**: http://localhost:8081
