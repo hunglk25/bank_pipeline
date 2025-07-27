@@ -1,0 +1,21 @@
+[2025-07-27T09:00:49.524+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-07-27T09:00:49.568+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bank_data_pipeline.generate_banking_data manual__2025-07-27T09:00:40.955475+00:00 [queued]>
+[2025-07-27T09:00:49.580+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bank_data_pipeline.generate_banking_data manual__2025-07-27T09:00:40.955475+00:00 [queued]>
+[2025-07-27T09:00:49.580+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-07-27T09:00:49.597+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_banking_data> on 2025-07-27 09:00:40.955475+00:00
+[2025-07-27T09:00:49.605+0000] {standard_task_runner.py:63} INFO - Started process 257 to run task
+[2025-07-27T09:00:49.612+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bank_data_pipeline', 'generate_banking_data', 'manual__2025-07-27T09:00:40.955475+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/bank_data_pipeline.py', '--cfg-path', '/tmp/tmppjmr6hwb']
+[2025-07-27T09:00:49.617+0000] {standard_task_runner.py:91} INFO - Job 7: Subtask generate_banking_data
+[2025-07-27T09:00:49.643+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.10/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-27T09:00:49.697+0000] {task_command.py:426} INFO - Running <TaskInstance: bank_data_pipeline.generate_banking_data manual__2025-07-27T09:00:40.955475+00:00 [running]> on host 9847cdb5c5e6
+[2025-07-27T09:00:49.821+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineering_team' AIRFLOW_CTX_DAG_ID='bank_data_pipeline' AIRFLOW_CTX_TASK_ID='generate_banking_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-27T09:00:40.955475+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-27T09:00:40.955475+00:00'
+[2025-07-27T09:00:49.822+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-07-27T09:00:49.836+0000] {bank_data_pipeline.py:71} INFO - Starting data generation for run manual__2025-07-27T09:00:40.955475+00:00
+[2025-07-27T09:00:50.456+0000] {bank_data_pipeline.py:88} INFO - Data generation output: 
+[2025-07-27T09:00:50.457+0000] {bank_data_pipeline.py:95} INFO - Task completed successfully
+[2025-07-27T09:00:50.485+0000] {python.py:237} INFO - Done. Returned value was: {'status': 'success', 'path': '/tmp/generated_data/run_manual__2025-07-27T09_00_40.955475+00_00'}
+[2025-07-27T09:00:50.485+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-07-27T09:00:50.530+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bank_data_pipeline, task_id=generate_banking_data, run_id=manual__2025-07-27T09:00:40.955475+00:00, execution_date=20250727T090040, start_date=20250727T090049, end_date=20250727T090050
+[2025-07-27T09:00:50.584+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-07-27T09:00:50.641+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-07-27T09:00:50.643+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

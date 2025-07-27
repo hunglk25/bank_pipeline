@@ -41,7 +41,8 @@ def load_data():
         accounts = pd.read_sql("SELECT * FROM Account", conn)
         transactions = pd.read_sql("SELECT * FROM Transaction", conn)
         auth_logs = pd.read_sql("SELECT * FROM AuthenticationLog", conn)
-        
+        risk_alerts = pd.read_sql("SELECT * FROM RiskAlerts", conn)
+
         conn.close()
         
         return {
@@ -49,7 +50,8 @@ def load_data():
             'devices': devices,
             'accounts': accounts,
             'transactions': transactions,
-            'auth_logs': auth_logs
+            'auth_logs': auth_logs,
+            'risk_alerts': risk_alerts
         }
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
@@ -254,7 +256,7 @@ def create_data_tables(data):
     
     table_option = st.selectbox(
         "Select table to view:",
-        ["Customers", "Devices", "Accounts", "Transactions", "Authentication Logs"]
+        ["Customers", "Devices", "Accounts", "Transactions", "Authentication Logs", "Risk Alerts"]
     )
     
     if table_option == "Customers":
@@ -267,6 +269,9 @@ def create_data_tables(data):
         st.dataframe(data['transactions'], use_container_width=True)
     elif table_option == "Authentication Logs":
         st.dataframe(data['auth_logs'], use_container_width=True)
+    elif table_option == "Risk Alerts":
+        st.dataframe(data['risk_alerts'], use_container_width=True)
+
 
 def main():
     st.title("🏦 Bank Data Analytics Dashboard")
