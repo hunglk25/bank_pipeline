@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS AuthenticationLog (
   AuthID SERIAL PRIMARY KEY,
   CustomerID INT REFERENCES Customer(CustomerID),
   DeviceID INT REFERENCES Device(DeviceID),
-  AuthMethod VARCHAR(20),   -- e.g. OTP, Biometric, Password
+  AuthMethod VARCHAR(20),   
   AuthStatus VARCHAR(10),   -- e.g. SUCCESS/FAIL
   Timestamp TIMESTAMP
 );
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS RiskAlerts (
     AlertID SERIAL PRIMARY KEY,
     CustomerID INT REFERENCES Customer(CustomerID),
     TransactionID INT REFERENCES Transaction(TransactionID),
-    AlertType VARCHAR(50) NOT NULL, -- HIGH_VALUE_NO_STRONG_AUTH, UNVERIFIED_DEVICE, DAILY_LIMIT_EXCEEDED
-    AlertLevel VARCHAR(20) DEFAULT 'MEDIUM', -- LOW, MEDIUM, HIGH, CRITICAL
+    AlertType VARCHAR(50) NOT NULL, 
+    AlertLevel VARCHAR(20) DEFAULT 'MEDIUM', 
     Description VARCHAR(255),
     CreatedAt TIMESTAMP DEFAULT NOW()
 );
