@@ -6,6 +6,8 @@ import logging
 import psycopg2
 from datetime import datetime
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class BankingMonitor:
     def __init__(self, data_dir):
@@ -47,26 +49,23 @@ class BankingMonitor:
         account_map = {a.get('AccountID'): a.get('CustomerID') 
                       for a in self.data.get('accounts', [])}
         
-        device_map = {d.get('DeviceID'): d.get('is_verified', False) 
+        device_map = {d.get('DeviceID'): d.get('IsVerified', False) 
                      for d in self.data.get('devices', [])}
-        
         # Create auth method mapping by customer and timestamp
         AuthMethods = {}
         for auth in self.data.get('auth_logs', []):
-            if auth.get('auth_status') == 'SUCCESS':
+            if auth.get('AuthStatus') == 'SUCCESS':
                 CustomerID = auth.get('CustomerID')
-                timestamp = auth.get('timestamp')
+                DeviceID = auth.get('DeviceID')
                 method = auth.get('AuthMethod')
-                if CustomerID and timestamp and method:
-                    AuthMethods[f"{CustomerID}_{timestamp}"] = method
-        
+                if CustomerID and DeviceID and method:
+                    AuthMethods[f"{CustomerID}_{DeviceID}"] = method
         # Daily totals and strong auth tracking
         daily_totals = {}
         strong_auths = set()
-        today = datetime.now().date().isoformat()
         conn = self.get_db_connection()
         if not conn:
-            # logger.error("Failed to connect to database")
+            logger.error("Failed to connect to database")
             return violations
         cursor = conn.cursor()
 
@@ -75,15 +74,17 @@ class BankingMonitor:
             if not CustomerID:
                 continue
                 
-            amount = float(txn.get('amount', 0))
-            timestamp = txn.get('timestamp', '')
-            
+            amount = float(txn.get('Amount', 0))
+            timestamp = txn.get('Timestamp', '')
+            DeviceID = txn.get('DeviceID', '')
+
             # Get auth method from auth_logs
-            auth_key = f"{CustomerID}_{timestamp}"
+            auth_key = f"{CustomerID}_{DeviceID}"
             AuthMethod = AuthMethods.get(auth_key, 'PASSWORD')
             # High value without strong auth
             if amount > 10000000 and AuthMethod not in ['BIOMETRIC']:
                 violations += 1
+                logger.warning(f"Customer {CustomerID} made high value transaction {amount:,.0f} VND without strong auth")
                 self.add_alert(CustomerID, 'HIGH_VALUE_NO_STRONG_AUTH', 'HIGH',
                              f'Transaction {amount:,.0f} VND without strong auth', 
                              txn.get('TransactionID'))
@@ -96,31 +97,37 @@ class BankingMonitor:
             except Exception as e:
                 is_verified = False
                 
+
             if not device_map.get(txn.get('DeviceID'), False) and not is_verified:
                 violations += 1
+                logger.warning(f"Customer {CustomerID} used unverified device for transaction {txn.get('TransactionID')}")
                 self.add_alert(CustomerID, 'UNVERIFIED_DEVICE', 'MEDIUM',
                              'Transaction from unverified device',
                              txn.get('TransactionID'))
             
+            txn_date = timestamp[:10] if timestamp else ''
             try: 
                 cursor.execute(
                     "SELECT SUM(Amount) FROM Transaction WHERE FromAccountID = %s AND DATE(Timestamp) = %s",
-                    (txn.get('FromAccountID'), today))
+                    (txn.get('FromAccountID'), txn_date))
                 total = cursor.fetchone()[0] or 0
             except Exception as e:
                 total = 0
 
-            txn_date = timestamp[:10] if timestamp else ''
-            if txn_date == today and not txn.get('risk_flag', False):
-                daily_totals[CustomerID] = daily_totals.get(CustomerID, 0) + amount
-                total = daily_totals[CustomerID] + total
-                if AuthMethod in ['BIOMETRIC', 'OTP']:
+
+            daily_totals[CustomerID] = daily_totals.get(CustomerID, 0) + amount
+            tmp = daily_totals.get(CustomerID, 0) + amount
+            total = daily_totals[CustomerID] + total
+            if AuthMethod in ['BIOMETRIC', 'OTP']:
                     strong_auths.add(CustomerID)
             if total > 20000000 and CustomerID not in strong_auths:
                 violations += 1
+                logger.warning(f"Customer {CustomerID} exceeded daily limit: {total:,.0f} VND without strong auth")
                 self.add_alert(CustomerID, 'DAILY_LIMIT_NO_STRONG_AUTH', 'HIGH',
                              f'Daily total {total:,.0f} VND without strong auth',
                              txn.get('TransactionID'))
+            else: 
+                daily_totals[CustomerID] = tmp
 
         return violations
 
@@ -128,7 +135,7 @@ class BankingMonitor:
         self.load_data()
         
         risk_violations = self.check_risks()
-        print(f'Risk violations: {risk_violations}')
+        logger.info(f"Total risk violations found: {risk_violations}")
         # Save alerts
         alerts_file = os.path.join(self.data_dir, 'risk_alerts.json')
         with open(alerts_file, 'w') as f:

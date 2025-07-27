@@ -57,12 +57,14 @@ class BankDataGenerator:
         used_ids = set()
         
         for customer in customers_data:
-            for _ in range(random.randint(1, 2)):
+            # Each customer has 1-3 devices
+            num_devices = random.randint(1, 3)
+            for _ in range(num_devices):
                 # Sometimes generate duplicate IDs (15% chance)
                 if random.random() < 0.15 and used_ids:
                     device_id = random.choice(list(used_ids))
                 else:
-                    # Generate random ID between 10000 and 9999999
+                    # Generate unique device ID between 10000 and 9999999
                     device_id = random.randint(10000, 9999999)
                     while device_id in used_ids:
                         device_id = random.randint(10000, 9999999)
@@ -114,6 +116,14 @@ class BankDataGenerator:
         if len(accounts_data) < 2:
             return []
         
+        # Create customer to devices mapping for efficient lookup
+        customer_devices = {}
+        for device in device_data:
+            customer_id = device['CustomerID']
+            if customer_id not in customer_devices:
+                customer_devices[customer_id] = []
+            customer_devices[customer_id].append(device)
+        
         transactions = []
         used_ids = set()
         
@@ -131,14 +141,22 @@ class BankDataGenerator:
             
             from_acc = random.choice(accounts_data)
             to_acc = random.choice([acc for acc in accounts_data if acc['AccountID'] != from_acc['AccountID']])
-            device_id = random.choice(device_data)
-            amount = round(random.uniform(10000000, 20000000), 2)
+            
+            # Ensure device belongs to the same customer as the from_account
+            from_customer_id = from_acc['CustomerID']
+            if from_customer_id in customer_devices and customer_devices[from_customer_id]:
+                device = random.choice(customer_devices[from_customer_id])
+            else:
+                # Fallback if no devices for this customer (shouldn't happen with proper data)
+                device = random.choice(device_data)
+            
+            amount = round(random.uniform(20000000, 100000000), 2)
             
             transactions.append({
                 'TransactionID': transaction_id,
                 'FromAccountID': from_acc['AccountID'],
                 'ToAccountID': to_acc['AccountID'],
-                'DeviceID': device_id['DeviceID'],
+                'DeviceID': device['DeviceID'],
                 'TxnType': random.choice(['TRANSFER', 'PAYMENT']),
                 'Amount': amount,
                 'Timestamp': fake.date_time_between(start_date='-10d', end_date='now'),
@@ -150,6 +168,14 @@ class BankDataGenerator:
         logger.info("Generating auth logs...")
         if not customers_data or not devices_data:
             return []
+        
+        # Create customer to devices mapping for efficient lookup
+        customer_devices = {}
+        for device in devices_data:
+            customer_id = device['CustomerID']
+            if customer_id not in customer_devices:
+                customer_devices[customer_id] = []
+            customer_devices[customer_id].append(device)
         
         auth_logs = []
         used_ids = set()
@@ -166,10 +192,21 @@ class BankDataGenerator:
             
             used_ids.add(auth_id)
             
+            # Select a random customer and one of their devices
+            customer = random.choice(customers_data)
+            customer_id = customer['CustomerID']
+            
+            if customer_id in customer_devices and customer_devices[customer_id]:
+                device = random.choice(customer_devices[customer_id])
+            else:
+                # Fallback if no devices for this customer (shouldn't happen with proper data)
+                device = random.choice(devices_data)
+                customer_id = device['CustomerID']
+            
             auth_logs.append({
                 'AuthID': auth_id,
-                'CustomerID': random.choice(customers_data)['CustomerID'],
-                'DeviceID': random.choice(devices_data)['DeviceID'],
+                'CustomerID': customer_id,
+                'DeviceID': device['DeviceID'],
                 'AuthMethod': random.choice(['OTP', 'Biometric', 'Password']),
                 'AuthStatus': random.choice(['SUCCESS', 'FAIL']),
                 'Timestamp': fake.date_time_between(start_date='-7d', end_date='now')
