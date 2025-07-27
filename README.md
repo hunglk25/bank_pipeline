@@ -61,6 +61,8 @@ Automated risk detection with 3 core rules:
 ## How to Run
 1. Start services:
    ```bash
+   mkdir logs
+   chmod -R 777 logs
    chmod +x setup.sh
    ./setup.sh
    ```
