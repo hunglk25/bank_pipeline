@@ -120,6 +120,7 @@ class BankingMonitor:
             total = daily_totals[CustomerID] + total
             if AuthMethod in ['BIOMETRIC', 'OTP']:
                     strong_auths.add(CustomerID)
+            # Daily limit exceeded without strong auth
             if total > 20000000 and CustomerID not in strong_auths:
                 violations += 1
                 logger.warning(f"Customer {CustomerID} exceeded daily limit: {total:,.0f} VND without strong auth")
